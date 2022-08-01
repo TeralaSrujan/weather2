@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Syncopate:700" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="C:\Users\mamee\OneDrive\Desktop\weather\templates\style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <script>
+        var viewportHeader = document.querySelector(".viewport-header");
+
+document.body.addEventListener("scroll", function(event) {
+  var opacity = (document.body.offsetHeight - document.body.scrollTop) / document.body.offsetHeight;
+  var scale = (document.body.offsetHeight - document.body.scrollTop) / document.body.offsetHeight;
+  document.documentElement.style.setProperty('--headerOpacity', opacity);
+  document.documentElement.style.setProperty('--headerScale', scale);
+});
+
+
+// document.getElementsByTagName("body").addEventListener("scroll", myFunction(e));
+
+// function myFunction(e) {
+//   var opacity = (document.body.offsetHeight - document.body.scrollTop) / document.body.offsetHeight;
+//   var scale = (document.body.offsetHeight - document.body.scrollTop) / document.body.offsetHeight;
+//   document.documentElement.style.setProperty('--headerOpacity', opacity);
+//   document.documentElement.style.setProperty('--headerScale', scale);
+// }
+
+    </script>
+    <style>
+        :root {
+	--headerOpacity: 1;
+	--headerScale: 1;
+  }
+  
+  .video-header {
+	position: absolute;
+	text-align: center;
+	width: 100vw;
+	height: 100vh;
+  }
+  .video-header, .video-header video, .video-header .viewport-header {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+  }
+  .video-header video {
+	background: brown;
+	object-fit: cover;
+  }
+  .video-header .viewport-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 1;
+	opacity: var(--headerOpacity);
+	transform: scale(var(--headerScale));
+  }
+  
+  html, body {
+	height: 100vh;
+	overflow-x: hidden;
+  }
+  
+  html {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 150%;
+	line-height: 1.4;
+  }
+  
+  body {
+	margin: 0;
+  }
+ 
+/* -------------------------------------------- */
+
+
+
+h1 {
+	font-family: "Syncopate", sans-serif;
+	color: rgba(251, 251, 251);
+	text-transform: uppercase;
+	letter-spacing: 2vw;
+	line-height: 1.2;
+	font-size: 3vw;
+	text-align: center;
+}
+
+h1 span {
+	display: block;
+	font-size: 7vw;
+	letter-spacing: -0.5vw;
+}
+
+main {
+	background: rgb(116, 148, 137);
+	position: relative;
+	padding-top: 1rem;
+	margin-top: 100vh;
+}
+
+main::before {
+	content: "";
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	top: -100vh;
+}
+.Main_div{
+	/* height: 150vh; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding:1%;
+}
+
+.Row_1{
+	height: 93%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	/* padding:3%; */
+}
+.Row_2{
+	height: 7%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/* padding:3%; */
+}
+
+.col_1,.col_2,.col_3{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	/* margin:20px; */
+}
+
+.border123{
+	background-color: rgba(255, 255, 255, 0.705);
+	margin: 10px;
+	padding: 20px;
+	border: 7px solid rgb(5, 5, 5);
+	border-radius: 10px;
+}
+.border12345{
+  display: flex;
+  flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.border123 > h2 {
+	color: rgb(77, 0, 0);
+}
+hr{
+	color: #000;
+	background-color: black;
+}
+
+
+/* ------------------------------------------------ */
+
+.result{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+	margin-top: 30px;
+  }
+/* ====================================================== */
+
+.PredBoard{
+    height: 150px;
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+  }
+  .ResultTick{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+  }
+  .ResultText{
+    height: 100%;
+    width: 60%;
+    background-color: rgba(0, 0, 0, 0.693);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    color: aqua;
+
+  }
+  .Ticktoday{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    flex-direction: column;
+    color: ghostwhite;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-right: 8px solid rgb(116, 148, 137);
+    border-radius: 25px;
+  }
+  .TickTmrw{
+    height: 100%;
+    width: 50%;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    flex-direction: column;
+    color: ghostwhite;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-right: 8px solid rgb(116, 148, 137); 
+    border-radius: 25px;
+   
+  }
+  .boxhead12{
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* border-bottom: 2px solid wheat; */
+
+  }
+  .boxtail12{
+	width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+	background-color: rgba(8, 0, 53, 0.678);
+	border-radius: 0px 0px 25px 25px;
+	border-top: 2px solid wheat;
+
+  }
+
+  .Willrain{
+    color: springgreen;
+    font-size: 80px;
+  }
+  .Willnotrain{
+    color:red;
+    font-size: 80px;
+  }
+
+  code{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    background-color: rgba(0, 0, 0, 0.337); 
+    color: rgb(255, 208, 147);
+    font-weight: normal;
+  }
+
+  .btn-close{
+    background-color: aqua;
+  }
+    </style>
+
+    <script type="text/javascript">
+
+        function onClickedPredictWeather() {
+            //console.log("Estimate price button clicked");
+            var MinimumTemp = document.getElementById("imintemp");
+            var MaximumTemp = document.getElementById("imaxtemp");
+            var Rainfall = document.getElementById("irain");
+            var Evaporation = document.getElementById("ievo");
+            var Sunshine = document.getElementById("isun");
+            var WindGustSpeed = document.getElementById("iwindgust");
+            var WindSpeed9am = document.getElementById("iwind9");
+            var WindSpeed3pm = document.getElementById("iwind3");
+            var Humidity9am = document.getElementById("ihum9");
+            var Humidity3pm = document.getElementById("ihum3");
+            var Pressure9am = document.getElementById("ipru9");
+            var Pressure3pm = document.getElementById("ipru3");
+            var Cloud9am = document.getElementById("iclo9");
+            var Cloud3pm = document.getElementById("iclo3");
+            var Temp9am = document.getElementById("item9");
+            var Temp3pm = document.getElementById("item3");
+            var Month = document.getElementById("imon");
+            var Day = document.getElementById("iday");
+            var Location = document.getElementById("iLoca");
+            var WindGustDir = document.getElementById("iWinddir");
+            var WindDir9am = document.getElementById("iwinddir9");
+            var WindDir3pm = document.getElementById("iwinddir3");
+
+            var estWeather = document.getElementById("uiEstimatedWeather");
+
+            var url = "http://18.222.227.145:8080/predict_rain_tdy_tmrw"; //Use this if you are NOT using nginx which is first 7 tutorials
+            // var url = "/api/predict_rain_tdy_tmrw"; // Use this if  you are using nginx. i.e tutorial 8 and onwards
+
+            $.post(url, {
+
+                i_MinTemp: parseFloat(MinimumTemp.value),
+                i_MaxTemp: parseFloat(MaximumTemp.value),
+                i_Rainfall: parseFloat(Rainfall.value),
+                i_Evaporation: parseFloat(Evaporation.value),
+                i_Sunshine: parseFloat(Sunshine.value),
+                i_WindGustSpeed: parseFloat(WindGustSpeed.value),
+                i_WindSpeed9am: parseFloat(WindSpeed9am.value),
+                i_WindSpeed3pm: parseFloat(WindSpeed3pm.value),
+                i_Humidity9am: parseFloat(Humidity9am.value),
+                i_Humidity3pm: parseFloat(Humidity3pm.value),
+                i_Pressure9am: parseFloat(Pressure9am.value),
+                i_Pressure3pm: parseFloat(Pressure3pm.value),
+                i_Cloud9am: parseFloat(Cloud9am.value),
+                i_Cloud3pm: parseFloat(Cloud3pm.value),
+                i_Temp9am: parseFloat(Temp9am.value),
+                i_Temp3pm: parseFloat(Temp3pm.value),
+                i_Month: parseFloat(Month.value),
+                i_Day: parseFloat(Day.value),
+                i_Location: Location.value,
+                i_WindGustDir: WindGustDir.value,
+                i_WindDir9am: WindDir9am.value,
+                i_WindDir3pm: WindDir3pm.value
+
+            }, function (data, status) {
+                console.log(data.Weather_Report);
+                var output = data.Weather_Report.toString()
+                var outputarr = output.split("|");
+                estWeather.innerHTML = "<div class='PredBoard'><div class='ResultTick'><div class='Ticktoday'><div class='boxhead12'><h6>Rain Today</h6></div><div class='boxtail12'><span class='" + outputarr[0] + "'>" + outputarr[1] + "</span></div></div><div class='TickTmrw'><div class='boxhead12'><h6>Rain Tomorrow</h6></div><div class='boxtail12'><span class='" + outputarr[2] + "'>" + outputarr[3] + "</span></div></div></div><div class='ResultText'><p>" + outputarr[4] + "</p> </div></div>";
+                console.log(status);
+            });
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <header class="video-header">
+	    <img src="https://static.wixstatic.com/media/989d4e_b72a63731ecb44a68094c5718a9e89e4~mv2.gif" width="100%" style="filter: brightness(50%);">
+        <div class="viewport-header">
+            <h1>
+                Weather Forecast
+                <span>Today & Tomorrow</span>
+            </h1>
+        </div>
+    </header>
+
+    <main>
+        <form>
+            <div class="Main_div">
+                <div class="Row_1">
+                    <div class="col_1">
+                        <div class="border123">
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Day</label>
+                                <input type="number" class="form-control" id="iday" placeholder="1 - 31">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Month</label>
+                                <input type="number" class="form-control" id="imon" placeholder="1 - 12">
+                            </div>
+                        </div>
+                        <div class="border123">
+                            <h3>Temperature</h3>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Minimum</label>
+                                <input type="number" class="form-control" id="imintemp" placeholder="in Celsius">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Maximum</label>
+                                <input type="number" class="form-control" id="imaxtemp" placeholder="in Celsius">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 9 AM</label>
+                                <input type="number" class="form-control" id="item9" placeholder="in Celsius">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 3 PM</label>
+                                <input type="number" class="form-control" id="item3" placeholder="in Celsius">
+                            </div>
+
+                        </div>
+                        <div class="border123">
+                            <h3>Pressure</h3>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 9 AM</label>
+                                <input type="number" class="form-control" id="ipru9" placeholder="Pressure">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 3 PM</label>
+                                <input type="number" class="form-control" id="ipru3" placeholder="Pressure">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col_2">
+                        <div class="border123 border12345">
+                            <h2>Weather Forecast</h2>
+                            <h2>Today & Tomorrow</h2>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                                Details
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade  " id="staticBackdrop" data-bs-backdrop="static"
+                                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-white bg-dark">
+                                            <h5 class="modal-title" id="staticBackdropLabel">Weather Forecast
+                                                Today & Tomorrow - Details</h5>
+
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-white bg-dark">
+
+                                            <h4>Description</h4>
+                                            <p>
+                                                Daily weather observations from multiple locations around Australia,
+                                                obtained from the Australian Commonwealth Bureau of Meteorology and
+                                                processed to create this realtively large sample dataset for
+                                                illustrating analytics, data mining, and data science using R and
+                                                Rattle.
+
+                                                The data has been processed to provide a target variable RainTomorrow
+                                                (whether there is rain on the following day - No/Yes) and a risk
+                                                variable RISK_MM (how much rain recorded in millimeters). Various
+                                                transformations are performed on the data.
+
+                                                The weatherAUS dataset is regularly updated an updates of this package
+                                                usually correspond to updates to this dataset. The data is updated from
+                                                the Bureau of Meteorology web site.
+
+                                                The locationsAUS dataset records the location of each weather station.
+
+                                                The source dataset is Copyright by the Australian Commonwealth Bureau of
+                                                Meteorology and is used with permission.
+
+                                                A CSV version of this dataset is available as
+                                                https://rattle.togaware.com/weatherAUS.csv. </p>
+                                            <hr>
+                                            <h4>Format</h4>
+                                            <p>The <code>weatherAUS</code> dataset is a data frame containing over
+                                                140,000 daily observations from over 45 Australian weather stations.
+                                            </p>
+
+                                            <dl>
+                                                <dt><code>Date</code></dt>
+                                                <dd>
+                                                    <p>The date of observation (a Date object).</p>
+                                                </dd>
+                                                <dt><code>Location</code></dt>
+                                                <dd>
+                                                    <p>The common name of the location of the
+                                                        weather station.</p>
+                                                </dd>
+                                                <dt><code>MinTemp</code></dt>
+                                                <dd>
+                                                    <p>The minimum temperature in degrees celsius. </p>
+                                                </dd>
+                                                <dt><code>MaxTemp</code></dt>
+                                                <dd>
+                                                    <p>The maximum temperature in degrees celsius. </p>
+                                                </dd>
+                                                <dt><code>Rainfall</code></dt>
+                                                <dd>
+                                                    <p>The amount of rainfall recorded for the day in mm. </p>
+                                                </dd>
+                                                <dt><code>Evaporation</code></dt>
+                                                <dd>
+                                                    <p>The so-called Class A pan evaporation (mm)
+                                                        in the 24 hours to 9am.</p>
+                                                </dd>
+                                                <dt><code>Sunshine</code></dt>
+                                                <dd>
+                                                    <p>The number of hours of bright sunshine in the day.</p>
+                                                </dd>
+                                                <dt><code>WindGustDir</code></dt>
+                                                <dd>
+                                                    <p>The direction of the strongest wind gust
+                                                        in the 24 hours to midnight.</p>
+                                                </dd>
+                                                <dt><code>WindGustSpeed</code></dt>
+                                                <dd>
+                                                    <p>The speed (km/h) of the strongest wind
+                                                        gust in the 24 hours to midnight.</p>
+                                                </dd>
+                                                <dt><code>Temp9am</code></dt>
+                                                <dd>
+                                                    <p> Temperature (degrees C) at 9am. </p>
+                                                </dd>
+                                                <dt><code>RelHumid9am</code></dt>
+                                                <dd>
+                                                    <p> Relative humidity (percent) at 9am. </p>
+                                                </dd>
+                                                <dt><code>Cloud9am</code></dt>
+                                                <dd>
+                                                    <p> Fraction of sky obscured by cloud at
+                                                        9am. This is measured in "oktas", which are a unit of eigths. It
+                                                        records how many eigths of the sky are obscured by cloud. A 0
+                                                        measure indicates completely clear sky whilst an 8 indicates
+                                                        that
+                                                        it is completely overcast. </p>
+                                                </dd>
+                                                <dt><code>WindSpeed9am</code></dt>
+                                                <dd>
+                                                    <p>Wind speed (km/hr) averaged over 10 minutes prior to 9am.
+                                                    </p>
+                                                </dd>
+                                                <dt><code>Pressure9am</code></dt>
+                                                <dd>
+                                                    <p>Atmospheric pressure (hpa) reduced to mean sea level at 9am.
+                                                    </p>
+                                                </dd>
+                                                <dt><code>Temp3pm</code></dt>
+                                                <dd>
+                                                    <p> Temperature (degrees C) at 3pm. </p>
+                                                </dd>
+                                                <dt><code>RelHumid3pm</code></dt>
+                                                <dd>
+                                                    <p> Relative humidity (percent) at 3pm. </p>
+                                                </dd>
+                                                <dt><code>Cloud3pm</code></dt>
+                                                <dd>
+                                                    <p>Fraction of sky obscured by cloud (in "oktas": eighths) at
+                                                        3pm. See Cload9am for a description of the values.
+                                                    </p>
+                                                </dd>
+                                                <dt><code>WindSpeed3pm</code></dt>
+                                                <dd>
+                                                    <p>Wind speed (km/hr) averaged over 10 minutes prior to 3pm.
+                                                    </p>
+                                                </dd>
+                                                <dt><code>Pressure3pm</code></dt>
+                                                <dd>
+                                                    <p>Atmospheric pressure (hpa) reduced to mean sea level at 3pm.
+                                                    </p>
+                                                </dd>
+                                                <dt><code>RainToday</code></dt>
+                                                <dd>
+                                                    <p>Integer: 1 if precipitation (mm) in the 24 hours to 9am exceeds
+                                                        1mm, otherwise 0.
+                                                    </p>
+                                                </dd>
+
+
+                                                <dt><code>RainTomorrow</code></dt>
+                                                <dd>
+                                                    <p>The target variable. Did it rain tomorrow?
+                                                    </p>
+                                                </dd>
+                                            </dl>
+                                            <hr>
+
+                                            <h4>Data Frame (Specimen)</h4>
+                                            <img src="https://static.wixstatic.com/media/989d4e_db59df9249f94afcb945888416407d4a~mv2.png/v1/fill/w_1697,h_990,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01,enc_auto/989d4e_db59df9249f94afcb945888416407d4a~mv2.png" alt="" style="width: 100%;">
+
+                                        </div>
+                                        <div class="modal-footer text-white bg-dark">
+                                            <button type="button" class="btn btn-danger"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="border123">
+                            <h3>Humidity</h3>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 9 AM</label>
+                                <input type="number" class="form-control" id="ihum9" placeholder="Humidity">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 3 PM</label>
+                                <input type="number" class="form-control" id="ihum3" placeholder="Humidity">
+                            </div>
+                        </div>
+                        <div class="border123">
+
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Location -</label>
+                                <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
+                                <select class="form-select" id="iLoca" aria-label="Default select example">
+                                    <option disabled="disabled" selected>Select Location</option>
+                                    <option value="Albany">Albany</option>
+                                    <option value="Albury">Albury</option>
+                                    <option value="AliceSprings">AliceSprings</option>
+                                    <option value="BadgerysCreek">BadgerysCreek</option>
+                                    <option value="Ballarat">Ballarat</option>
+                                    <option value="Bendigo">Bendigo</option>
+                                    <option value="Brisbane">Brisbane</option>
+                                    <option value="Cairns">Cairns</option>
+                                    <option value="Canberra">Canberra</option>
+                                    <option value="Cobar">Cobar</option>
+                                    <option value="CoffsHarbour">CoffsHarbour</option>
+                                    <option value="Dartmoor">Dartmoor</option>
+                                    <option value="Darwin">Darwin</option>
+                                    <option value="GoldCoast">GoldCoast</option>
+                                    <option value="Hobart">Hobart</option>
+                                    <option value="Katherine">Katherine</option>
+                                    <option value="Launceston">Launceston</option>
+                                    <option value="Melbourne">Melbourne</option>
+                                    <option value="MelbourneAirport">MelbourneAirport</option>
+                                    <option value="Mildura">Mildura</option>
+                                    <option value="Moree">Moree</option>
+                                    <option value="MountGambier">MountGambier</option>
+                                    <option value="MountGinini">MountGinini</option>
+                                    <option value="Newcastle">Newcastle</option>
+                                    <option value="Nhil">Nhil</option>
+                                    <option value="NorahHead">NorahHead</option>
+                                    <option value="NorfolkIsland">NorfolkIsland</option>
+                                    <option value="Nuriootpa">Nuriootpa</option>
+                                    <option value="PearceRAAF">PearceRAAF</option>
+                                    <option value="Penrith">Penrith</option>
+                                    <option value="Perth">Perth</option>
+                                    <option value="PerthAirport">PerthAirport</option>
+                                    <option value="Portland">Portland</option>
+                                    <option value="Richmond">Richmond</option>
+                                    <option value="Sale">Sale</option>
+                                    <option value="SalmonGums">SalmonGums</option>
+                                    <option value="Sydney">Sydney</option>
+                                    <option value="SydneyAirport">SydneyAirport</option>
+                                    <option value="Townsville">Townsville</option>
+                                    <option value="Tuggeranong">Tuggeranong</option>
+                                    <option value="Uluru">Uluru</option>
+                                    <option value="WaggaWagga">WaggaWagga</option>
+                                    <option value="Walpole">Walpole</option>
+                                    <option value="Watsonia">Watsonia</option>
+                                    <option value="Williamtown">Williamtown</option>
+                                    <option value="Witchcliffe">Witchcliffe</option>
+                                    <option value="Wollongong">Wollongong</option>
+                                    <option value="Woomera">Woomera</option>
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Wind Gust Direction -</label>
+                                <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
+                                <select class="form-select" id="iWinddir" aria-label="Default select example">
+                                    <option disabled="disabled" selected>Select Wind Gust Direction</option>
+                                    <option value="WindGustDir_ENE">WindGustDir_ENE </option>
+                                    <option value="WindGustDir_ESE">WindGustDir_ESE </option>
+                                    <option value="WindGustDir_N">WindGustDir_N </option>
+                                    <option value="WindGustDir_NE">WindGustDir_NE </option>
+                                    <option value="WindGustDir_NNE">WindGustDir_NNE </option>
+                                    <option value="WindGustDir_NNW">WindGustDir_NNW </option>
+                                    <option value="WindGustDir_NW">WindGustDir_NW </option>
+                                    <option value="WindGustDir_S">WindGustDir_S </option>
+                                    <option value="WindGustDir_SE">WindGustDir_SE </option>
+                                    <option value="WindGustDir_SSE">WindGustDir_SSE </option>
+                                    <option value="WindGustDir_SSW">WindGustDir_SSW </option>
+                                    <option value="WindGustDir_SW">WindGustDir_SW </option>
+                                    <option value="WindGustDir_W">WindGustDir_W </option>
+                                    <option value="WindGustDir_WNW">WindGustDir_WNW </option>
+                                    <option value="WindGustDir_WSW">WindGustDir_WSW </option>
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Wind Direction 9 AM -</label>
+                                <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
+                                <select class="form-select" id="iwinddir9" aria-label="Default select example">
+                                    <option disabled="disabled" selected>Select Wind Direction 9 AM</option>
+                                    <option value="WindDir9am_ENE">WindDir9am_ENE</option>
+                                    <option value="WindDir9am_ESE">WindDir9am_ESE</option>
+                                    <option value="WindDir9am_N">WindDir9am_N </option>
+                                    <option value="WindDir9am_NE">WindDir9am_NE </option>
+                                    <option value="WindDir9am_NNE">WindDir9am_NNE</option>
+                                    <option value="WindDir9am_NNW">WindDir9am_NNW</option>
+                                    <option value="WindDir9am_NW">WindDir9am_NW </option>
+                                    <option value="WindDir9am_S">WindDir9am_S </option>
+                                    <option value="WindDir9am_SE">WindDir9am_SE </option>
+                                    <option value="WindDir9am_SSE">WindDir9am_SSE</option>
+                                    <option value="WindDir9am_SSW">WindDir9am_SSW</option>
+                                    <option value="WindDir9am_SW">WindDir9am_SW </option>
+                                    <option value="WindDir9am_W">WindDir9am_W </option>
+                                    <option value="WindDir9am_WNW">WindDir9am_WNW</option>
+                                    <option value="WindDir9am_WSW">WindDir9am_WSW</option>
+
+                                </select>
+                            </div>
+                            <hr>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Wind Direction 3 PM -</label>
+                                <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
+                                <select class="form-select" id="iwinddir3" aria-label="Default select example">
+                                    <option disabled="disabled" selected>Select Wind Direction 3 PM</option>
+                                    <option value="WindDir3pm_E">WindDir3pm_E </option>
+                                    <option value="WindDir3pm_ENE">WindDir3pm_ENE</option>
+                                    <option value="WindDir3pm_ESE">WindDir3pm_ESE</option>
+                                    <option value="WindDir3pm_N">WindDir3pm_N </option>
+                                    <option value="WindDir3pm_NE">WindDir3pm_NE </option>
+                                    <option value="WindDir3pm_NNE">WindDir3pm_NNE</option>
+                                    <option value="WindDir3pm_NNW">WindDir3pm_NNW</option>
+                                    <option value="WindDir3pm_NW">WindDir3pm_NW </option>
+                                    <option value="WindDir3pm_S">WindDir3pm_S </option>
+                                    <option value="WindDir3pm_SE">WindDir3pm_SE </option>
+                                    <option value="WindDir3pm_SSE">WindDir3pm_SSE</option>
+                                    <option value="WindDir3pm_SSW">WindDir3pm_SSW</option>
+                                    <option value="WindDir3pm_SW">WindDir3pm_SW </option>
+                                    <option value="WindDir3pm_W">WindDir3pm_W </option>
+                                    <option value="WindDir3pm_WNW">WindDir3pm_WNW</option>
+                                    <option value="WindDir3pm_WSW">WindDir3pm_WSW</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col_3">
+                        <div class="border123">
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Rainfall</label>
+                                <input type="number" class="form-control" id="irain" placeholder="in CMs">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Evaporation</label>
+                                <input type="number" class="form-control" id="ievo" placeholder="Evaporation">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Sunshine</label>
+                                <input type="number" class="form-control" id="isun" placeholder="Sunshine">
+                            </div>
+                        </div>
+                        <div class="border123">
+                            <h3>Wind Speed</h3>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">Gust Speed</label>
+                                <input type="number" class="form-control" id="iwindgust" placeholder="Wind Speed">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 9 AM</label>
+                                <input type="number" class="form-control" id="iwind9" placeholder="Wind Speed">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 3 PM</label>
+                                <input type="number" class="form-control" id="iwind3" placeholder="Wind Speed">
+                            </div>
+                        </div>
+                        <div class="border123">
+                            <h3>Cloud Cover</h3>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 9 AM</label>
+                                <input type="number" class="form-control" id="iclo9" placeholder="Cloud Cover">
+                            </div>
+                            <div class="col-12">
+                                <label for="inputAddress" class="form-label">At 3 PM</label>
+                                <input type="number" class="form-control" id="iclo3" placeholder="Cloud Cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Row_2">
+                    <button class="submit btn btn-primary" onclick="onClickedPredictWeather()"
+                        type="button">Predict</button>
+                </div>
+                <div id="uiEstimatedWeather" class="result">
+
+                </div>
+        </form>
+        <div class="AnswerDIv"></div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-white" style="background-color: #2d2d2d;">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0 container12">
+                <!-- Section: CTA -->
+                <section class="">
+                    <p class="d-flex justify-content-center align-items-center">
+                        <span class="me-3" style="font-family: 'Courier New', Courier, monospace;"> Summer Project -Guided By Divya Meena Sundaram</span>
+                    </p>
+                </section>
+                <!-- Section: CTA -->
+            </div>
+            <!-- Grid container -->
+
+            <!-- Copyright -->
+            <div class="text-center p-3"
+                style="background-color: rgba(0, 0, 0, 0.2); font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                By - Terala Srujan,Nishank,Nrupen
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+    </main>
+
+
+
+    <div id="circle"></div>
+</body>
+
+</html>
